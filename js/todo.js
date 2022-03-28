@@ -45,8 +45,33 @@ function setToDoList(todo) {
 
 function drawToDoList(item) {
   const toDoItemEl = document.createElement("li");
-  toDoItemEl.innerText = item;
+  const span = document.createElement("span");
+  const button = document.createElement("button");
+  button.innerText = "X";
+  span.innerText = item;
   toDoListEl.appendChild(toDoItemEl);
+  toDoItemEl.appendChild(button);
+  toDoItemEl.appendChild(span);
+  button.addEventListener("click", deleteToDo);
+}
+
+function deleteToDo(event) {
+  const clickedToDoEl = event.target.parentElement;
+  console.dir(clickedToDoEl);
+  const deleteSpan = clickedToDoEl.lastChild.innerText;
+  console.log(deleteSpan);
+  for (let i = 0; i < toDoList.length; i++) {
+    if (toDoList[i] === deleteSpan) {
+      toDoList.splice(i, 1);
+      i--;
+      clickedToDoEl.remove();
+      localStorage.setItem("toDoList", toDoList);
+    }
+  }
+  const deletedToDoList = localStorage.getItem("toDoList");
+  if (deletedToDoList.length === 0) {
+    localStorage.removeItem("toDoList");
+  }
 }
 
 // localStorage.setItem("todo", []);
