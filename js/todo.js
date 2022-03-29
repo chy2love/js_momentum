@@ -24,12 +24,14 @@ function checkValidate(item) {
 function getToDoList() {
   const toDoData = localStorage.getItem("toDoList");
   const toDoDataList = toDoData.split(",");
+
   toDoList = toDoDataList;
 
   if (toDoList.length > 0) {
-    for (let i = 0; i < toDoList.length; i++) {
-      drawToDoList(toDoList[i]);
-    }
+    toDoList.forEach(drawToDoList);
+    // for (let i = 0; i < toDoList.length; i++) {
+    //   drawToDoList(toDoList[i]);
+    // }
   }
 }
 
