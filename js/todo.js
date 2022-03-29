@@ -59,9 +59,7 @@ function drawToDoList(item) {
 
 function deleteToDo(event) {
   const clickedToDoEl = event.target.parentElement;
-  console.dir(clickedToDoEl);
   const deleteSpan = clickedToDoEl.lastChild.innerText;
-  console.log(deleteSpan);
   for (let i = 0; i < toDoList.length; i++) {
     if (toDoList[i] === deleteSpan) {
       toDoList.splice(i, 1);
