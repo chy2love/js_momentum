@@ -1,95 +1,68 @@
 const toDoForm = document.querySelector("#todo-form");
-const toDoListEl = document.querySelector("#todo-list");
+const toDoList = document.querySelector("#todo-list");
 const toDoInput = document.querySelector("#todo-form input");
+let toDos = JSON.parse(localStorage.getItem("toDoList")) ?? [];
 
-document.addEventListener("DOMContentLoaded", function () {
-  getToDoList();
-});
-
-let toDoList = [];
-
-function checkValidate(item) {
+function checkValidate(checkItem) {
   let valid = true;
-  if (toDoList.length > 0) {
-    for (let i = 0; i < toDoList.length; i++) {
-      if (toDoList[i] === item) {
+
+  if (toDos !== null) {
+    toDos.forEach((item) => {
+      if (item.text === checkItem.text) {
         valid = false;
-        alert("중복된 값이 있습니다.");
+        alert("중복된 값이 있습니다");
       }
-    }
+    });
   }
   return valid;
 }
 
-function getToDoList() {
-  const toDoData = localStorage.getItem("toDoList");
-  const toDoDataList = toDoData.split(",");
-
-  toDoList = toDoDataList;
-
-  if (toDoList.length > 0) {
-    toDoList.forEach(drawToDoList);
-    // for (let i = 0; i < toDoList.length; i++) {
-    //   drawToDoList(toDoList[i]);
-    // }
-  }
+function paintToDo(item) {
+  const toDoListEl = document.createElement("li");
+  const toDoSpan = document.createElement("span");
+  const toDoBtn = document.createElement("button");
+  toDoListEl.id = item.id;
+  toDoSpan.innerText = item.text;
+  toDoBtn.innerText = "X";
+  toDoList.appendChild(toDoListEl);
+  toDoListEl.appendChild(toDoBtn);
+  toDoListEl.appendChild(toDoSpan);
+  toDoBtn.addEventListener("click", deleteToDo);
 }
-
-function setToDoList(todo) {
-  if (checkValidate(todo)) {
-    toDoList.push(todo);
-    toDoInput.value = "";
-
-    localStorage.setItem("toDoList", toDoList);
-    drawToDoList(todo);
-  }
-}
-
-function drawToDoList(item) {
-  const toDoItemEl = document.createElement("li");
-  const span = document.createElement("span");
-  const button = document.createElement("button");
-  button.innerText = "X";
-  span.innerText = item;
-  toDoListEl.appendChild(toDoItemEl);
-  toDoItemEl.appendChild(button);
-  toDoItemEl.appendChild(span);
-  button.addEventListener("click", deleteToDo);
-}
-
 function deleteToDo(event) {
-  const clickedToDoEl = event.target.parentElement;
-  console.dir(clickedToDoEl);
-  const deleteSpan = clickedToDoEl.lastChild.innerText;
-  console.log(deleteSpan);
-  for (let i = 0; i < toDoList.length; i++) {
-    if (toDoList[i] === deleteSpan) {
-      toDoList.splice(i, 1);
-      i--;
-      clickedToDoEl.remove();
-      localStorage.setItem("toDoList", toDoList);
-    }
-  }
-  const deletedToDoList = localStorage.getItem("toDoList");
-  if (deletedToDoList.length === 0) {
+  const clickedLi = event.target.parentElement;
+  toDos = toDos.filter((toDo) => toDo.id !== Number(clickedLi.id));
+  localStorage.setItem("toDoList", JSON.stringify(toDos));
+  clickedLi.remove();
+  if (toDos.length === 0) {
     localStorage.removeItem("toDoList");
   }
 }
 
-// localStorage.setItem("todo", []);
-// const toDoStorage = localStorage.getItem("todo");
-// function paintToDo(newToDo) {
-//   const makeList = document.createElement("li");
-//   makeList.innerText = newToDo;
-//   toDoListEl.appendChild(makeList);
-// }
-
+function setToDoList(item) {
+  if (checkValidate(item)) {
+    toDos.push(item);
+    const params = JSON.stringify(toDos);
+    localStorage.setItem("toDoList", params);
+    paintToDo(item);
+  }
+}
 function handleToDoSubmit(event) {
   event.preventDefault();
-  const newToDo = toDoInput.value;
-  //   toDoStorage.push(newToDo);
-  //   toDoInput.value = "";
-  //   paintToDo(newToDo);
+  const newToDo = {
+    text: toDoInput.value,
+    id: Date.now(),
+  };
+  toDoInput.value = "";
   setToDoList(newToDo);
 }
+function getToDoList() {
+  if (toDos !== null) {
+    toDos.forEach(paintToDo);
+  }
+}
+document.addEventListener("DOMContentLoaded", function () {
+  getToDoList();
+});
+
 toDoForm.addEventListener("submit", handleToDoSubmit);
