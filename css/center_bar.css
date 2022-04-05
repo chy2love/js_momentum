@@ -1,0 +1,69 @@
+.column-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#clock {
+  font-size: 120px;
+  margin: 0;
+  padding-bottom: 60px;
+}
+
+#login-form input {
+  background-color: transparent;
+  color: aliceblue;
+  border: none;
+  border-bottom: 1px solid rgba(239, 238, 238, 0.6);
+  text-align: center;
+  font-size: 25px;
+}
+#login-form input::placeholder {
+  color: aliceblue;
+  text-align: center;
+}
+
+#login-form button {
+  background-color: transparent;
+  cursor: pointer;
+  height: 34px;
+  padding: 0 12px;
+  color: aliceblue;
+  border: 2px solid rgba(239, 238, 238, 0.6);
+  border-radius: 6px;
+}
+#todo-form input {
+  background-color: transparent;
+  color: aliceblue;
+  border: none;
+  border-bottom: 1px solid rgba(239, 238, 238, 0.6);
+  text-align: center;
+  font-size: 18px;
+  width: 300px;
+}
+#todo-form input::placeholder {
+  color: aliceblue;
+  text-align: center;
+}
+
+#todo-list {
+  list-style: none;
+  padding-left: 0;
+  width: 50%;
+}
+#todo-list li {
+  text-align: left;
+  margin: 4px 0;
+}
+#todo-list li span {
+  border-bottom: 1px solid rgba(239, 238, 238, 0.6);
+  padding: 0 5px 2px 0;
+  margin-left: 10px;
+}
+#todo-list li button {
+  background-color: transparent;
+  border: 2px solid rgba(239, 238, 238, 0.6);
+  border-radius: 9px;
+  color: aliceblue;
+  margin: 2px 0;
+  cursor: pointer;
+}

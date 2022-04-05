@@ -1,6 +1,8 @@
 @import "reset.css";
 @import "top_bar.css";
 @import "background_img.css";
+@import "center_bar.css";
+@import "bottom_bar.css";
 @font-face {
   font-family: "BMJUA";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff")
@@ -34,8 +36,4 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-#clock {
-  font-size: 120px;
 }

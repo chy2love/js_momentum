@@ -1,6 +1,7 @@
 const toDoForm = document.querySelector("#todo-form");
 const toDoList = document.querySelector("#todo-list");
 const toDoInput = document.querySelector("#todo-form input");
+const userName = localStorage.getItem("username");
 let toDos = JSON.parse(localStorage.getItem("toDoList")) ?? [];
 
 function checkValidate(checkItem) {
@@ -56,7 +57,12 @@ function handleToDoSubmit(event) {
   toDoInput.value = "";
   setToDoList(newToDo);
 }
+
 function getToDoList() {
+  if (userName !== null) {
+    toDoForm.classList.remove("hidden");
+    toDoList.classList.remove("hidden");
+  }
   if (toDos !== null) {
     toDos.forEach(paintToDo);
   }

@@ -38,6 +38,7 @@
   transition: 300ms;
   height: 24px;
   align-items: center;
+  box-sizing: border-box;
 }
 .search-underline:hover {
   border-bottom: 1px solid rgba(239, 238, 238, 0.6);
